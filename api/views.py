@@ -54,7 +54,7 @@ class OrganisationView(generics.GenericAPIView):
     def create_organisation(self, request):
         serializer = OrganisationCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        organisation = serializer.save()
+        organisation = serializer.save(org_id=uuid.uuid4())
         organisation.users.add(request.user)  # Add the creator to the organisation
 
         response_data = {
