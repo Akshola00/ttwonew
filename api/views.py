@@ -61,7 +61,7 @@ class OrganisationView(generics.GenericAPIView):
             "status": "success",
             "message": "Organisation created successfully",
             "data": {
-                "org_id": str(uuid.uuid4),
+                "org_id":  organisation.org_id,
                 "name": organisation.name,
                 "description": organisation.description
             }
