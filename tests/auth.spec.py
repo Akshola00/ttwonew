@@ -24,17 +24,17 @@ class TestAuthEndpoints(unittest.TestCase):
         user_id = response.data['user']['id']
         token = response.data['token']
 
-        # Verify token expiration
+        
         token_obj = Token.objects.get(key=token)
-        expiration_time = token_obj.created + timedelta(days=1)  # Assuming token expires in 1 day
+        expiration_time = token_obj.created + timedelta(days=1)  
         self.assertLess(datetime.now(), expiration_time)
 
     def test_login_user_success(self):
-        # First register the user
+        
         register_response = self.client.post(self.register_url, self.user_data, format='json')
         self.assertEqual(register_response.status_code, 201)
 
-        # Now attempt to login
+        
         login_data = {
             'email': self.user_data['email'],
             'password': self.user_data['password']
@@ -56,11 +56,11 @@ class TestAuthEndpoints(unittest.TestCase):
         self.assertIn('firstName', response.data['errors'])
 
     def test_duplicate_email_registration(self):
-        # Register the user first
+        
         response1 = self.client.post(self.register_url, self.user_data, format='json')
         self.assertEqual(response1.status_code, 201)
 
-        # Try to register again with the same email
+        
         response2 = self.client.post(self.register_url, self.user_data, format='json')
         self.assertEqual(response2.status_code, 422)
         self.assertIn('email', response2.data['errors'])

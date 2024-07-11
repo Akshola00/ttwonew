@@ -19,7 +19,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     lastName = serializers.CharField(
         required=True,
     )
-    phone = serializers.CharField(required=True,)
+    phone = serializers.CharField(required=False,)
 
     class Meta:
         model = User
